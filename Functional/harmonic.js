@@ -1,6 +1,6 @@
-"use strict";
+
 /******************************************************************************
- *  @file           : harmonic.ts
+ *  @file           : harmonic.js
  *  @overview       : To generate sum of harmonic numbers by accepting input from user.
  *  @author         : Krishna Murthy A V
  *  @version        : 1.0
