@@ -3,7 +3,7 @@
  *  @overview       : One string is an anagram of another if the second is simply a rearrangement
  *                    of the first. For example, 'heart' and 'earth' are anagrams...  
  *  @author         : Krishna Murthy A V 
- *  @version        : 1.0
+ *  @version        : 1.1
  *  @since          : 15-April-2019
  *
  ******************************************************************************/
