@@ -3,24 +3,28 @@ import * as read from 'readline-sync';
 var file = require('fs');
 
 class Person {
-    firstname:string;
-    lastname:string;
-    city:string;
-    state:string;
-    phonenumber:number;
-    zip:number;
-    constructor(firstname, lname, city, state, phnum, zip) {
+    firstname: string;
+    lastname: string;
+    city: string;
+    state: string;
+   
+    constructor(firstname, lname, city, state) {
         this.firstname = firstname;
         this.lastname = lname;
         this.city = city;
         this.state = state;
-        this.phonenumber = phnum;
-        this.zip = zip;
+        
     }
 }
 
-class AddressBook {
-    constructor() { }
+class AddressBook extends Person { //inheriting Person class
+    phonenumber1: number;
+    zip: number;
+    constructor(firstname, lname, city, state, phnum, zip) {
+        super(firstname,lname,city,state);
+        this.phonenumber1 = phnum;
+        this.zip = zip;
+     }
     // create new address book function
     addPerson(data) {
         var fname: string = read.question("Enter firstname of person :")
@@ -30,11 +34,11 @@ class AddressBook {
         var phonenum1: number = read.question("Enter phonenumber:")
         var zip: number = read.question("Enter zip code:")
         // create object of Person class
-        var o: any  = new Person(fname, lname, city1, state1, phonenum1, zip)
-        console.log("data: ",data);
-        
-        console.log("object: ",o);
-        
+        var o: any = new AddressBook(fname, lname, city1, state1, phonenum1, zip)
+        console.log("data: ", data);
+
+        console.log("object: ", o);
+
         /**
         * push each value into json
         */
@@ -57,15 +61,15 @@ class AddressBook {
                 console.log("Enter 6 for  zip code of person to be update")
                 var num1: number = read.questionInt("select any number:")
                 switch (num1) {
-                    case 1: this.firstname(data, index)
+                    case 1: this.firsname(data, index)
                         break;
-                    case 2: this.lastname(data, index)
+                    case 2: this.lasname(data, index)
                         break;
                     case 3: this.phonenumber(data, index)
                         break;
-                    case 4: this.city(data, index)
+                    case 4: this.city1(data, index)
                         break;
-                    case 5: this.state(data, index)
+                    case 5: this.state1(data, index)
                         break;
                     case 6: this.zipcode(data, index)
                         break;
@@ -74,14 +78,14 @@ class AddressBook {
         }
     }
     // update first name
-    firstname(data, index) {
+    firsname(data, index) {
         var fname1: string = read.question("enter the name changed first name:")
         data.Person[index].firstname = fname1
         var d = file.writeFileSync('/home/admin1/Desktop/TypeScript/OOPs/jsonaddress.json', JSON.stringify(data))
 
     }
     // update last name
-    lastname(data, index) {
+    lasname(data, index) {
         var lname1: string = read.question("enter changed last name:")
         data.Person[index].lastname = lname1
         var d = file.writeFileSync('/home/admin1/Desktop/TypeScript/OOPs/jsonaddress.json', JSON.stringify(data))
@@ -95,15 +99,15 @@ class AddressBook {
 
     }
     // update city
-    city(data, index) {
-        var cityname:string = read.question("enter changed city name")
+    city1(data, index) {
+        var cityname: string = read.question("enter changed city name")
         data.Person[index].city = cityname
         var d = file.writeFileSync('/home/admin1/Desktop/TypeScript/OOPs/jsonaddress.json', JSON.stringify(data))
 
     }
     // update city
-    state(data, index) {
-        var statename : string= read.question("enter the changed state name")
+    state1(data, index) {
+        var statename: string = read.question("enter the changed state name")
         data.Person[index].state = statename
         var d = file.writeFileSync('/home/admin1/Desktop/TypeScript/OOPs/jsonaddress.json', JSON.stringify(data))
 
@@ -120,13 +124,13 @@ class AddressBook {
 
         var name: string = read.question("enter name of person to be remove: ")
         var person: any = data.Person;
-        for (var index1 in person){
-        // for (let i = 0; i < data.Person.length; i++) {
+        for (var index1 in person) {
+            // for (let i = 0; i < data.Person.length; i++) {
             if (data.Person[index1].firstname == name) {
                 var index = data.Person.indexOf(data.Person[index1]);
                 // This will remove the object that name of the person
                 var dd = data.Person.splice(index, 1);
-                console.log("deleted person details : "+dd);
+                console.log("deleted person details : " + dd);
             }
             var d = file.writeFileSync('/home/admin1/Desktop/TypeScript/OOPs/jsonaddress.json', JSON.stringify(data))
 
@@ -137,11 +141,11 @@ class AddressBook {
         let fname = data.Person;
         function sortbyfname(a, b) {
             if (a.personfname == b.personfname)
-            return 0
+                return 0
             if (a.personfname > b.personfname)
-            return 1
+                return 1
             if (a.personfname < b.personfname)
-            return -1
+                return -1
         }
         var result = fname.sort(sortbyfname);
         console.log(result);

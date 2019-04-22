@@ -1,21 +1,37 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 exports.__esModule = true;
 // import readline-sync function
 var read = require("readline-sync");
 var file = require('fs');
 var Person = /** @class */ (function () {
-    function Person(firstname, lname, city, state, phnum, zip) {
+    function Person(firstname, lname, city, state) {
         this.firstname = firstname;
         this.lastname = lname;
         this.city = city;
         this.state = state;
-        this.phonenumber = phnum;
-        this.zip = zip;
     }
     return Person;
 }());
-var AddressBook = /** @class */ (function () {
-    function AddressBook() {
+var AddressBook = /** @class */ (function (_super) {
+    __extends(AddressBook, _super);
+    function AddressBook(firstname, lname, city, state, phnum, zip) {
+        var _this = _super.call(this, firstname, lname, city, state) || this;
+        _this.phonenumber1 = phnum;
+        _this.zip = zip;
+        return _this;
     }
     // create new address book function
     AddressBook.prototype.addPerson = function (data) {
@@ -26,7 +42,7 @@ var AddressBook = /** @class */ (function () {
         var phonenum1 = read.question("Enter phonenumber:");
         var zip = read.question("Enter zip code:");
         // create object of Person class
-        var o = new Person(fname, lname, city1, state1, phonenum1, zip);
+        var o = new AddressBook(fname, lname, city1, state1, phonenum1, zip);
         console.log("data: ", data);
         console.log("object: ", o);
         /**
@@ -52,19 +68,19 @@ var AddressBook = /** @class */ (function () {
                 var num1 = read.questionInt("select any number:");
                 switch (num1) {
                     case 1:
-                        this.firstname(data, index);
+                        this.firsname(data, index);
                         break;
                     case 2:
-                        this.lastname(data, index);
+                        this.lasname(data, index);
                         break;
                     case 3:
                         this.phonenumber(data, index);
                         break;
                     case 4:
-                        this.city(data, index);
+                        this.city1(data, index);
                         break;
                     case 5:
-                        this.state(data, index);
+                        this.state1(data, index);
                         break;
                     case 6:
                         this.zipcode(data, index);
@@ -74,13 +90,13 @@ var AddressBook = /** @class */ (function () {
         }
     };
     // update first name
-    AddressBook.prototype.firstname = function (data, index) {
+    AddressBook.prototype.firsname = function (data, index) {
         var fname1 = read.question("enter the name changed first name:");
         data.Person[index].firstname = fname1;
         var d = file.writeFileSync('/home/admin1/Desktop/TypeScript/OOPs/jsonaddress.json', JSON.stringify(data));
     };
     // update last name
-    AddressBook.prototype.lastname = function (data, index) {
+    AddressBook.prototype.lasname = function (data, index) {
         var lname1 = read.question("enter changed last name:");
         data.Person[index].lastname = lname1;
         var d = file.writeFileSync('/home/admin1/Desktop/TypeScript/OOPs/jsonaddress.json', JSON.stringify(data));
@@ -92,13 +108,13 @@ var AddressBook = /** @class */ (function () {
         var d = file.writeFileSync('/home/admin1/Desktop/TypeScript/OOPs/jsonaddress.json', JSON.stringify(data));
     };
     // update city
-    AddressBook.prototype.city = function (data, index) {
+    AddressBook.prototype.city1 = function (data, index) {
         var cityname = read.question("enter changed city name");
         data.Person[index].city = cityname;
         var d = file.writeFileSync('/home/admin1/Desktop/TypeScript/OOPs/jsonaddress.json', JSON.stringify(data));
     };
     // update city
-    AddressBook.prototype.state = function (data, index) {
+    AddressBook.prototype.state1 = function (data, index) {
         var statename = read.question("enter the changed state name");
         data.Person[index].state = statename;
         var d = file.writeFileSync('/home/admin1/Desktop/TypeScript/OOPs/jsonaddress.json', JSON.stringify(data));
@@ -152,5 +168,5 @@ var AddressBook = /** @class */ (function () {
         }
     };
     return AddressBook;
-}());
+}(Person));
 module.exports = { Person: Person, AddressBook: AddressBook };
